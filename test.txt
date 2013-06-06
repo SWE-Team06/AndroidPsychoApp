@@ -2,4 +2,9 @@ Mitglieder:
 
 Kevin
 Malte
+<<<<<<< HEAD
 Viktor
+=======
+Fabian
+
+>>>>>>> f5e8689578587d77a5f95b94f5d38b37fb149277
