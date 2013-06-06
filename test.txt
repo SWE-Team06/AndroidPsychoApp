@@ -1,7 +1,5 @@
 Mitglieder:
-<<<<<<< HEAD
 
 Kevin
-=======
 Malte
->>>>>>> 2103863d57d8198472af1d5b7685d9cc241a55bb
+
