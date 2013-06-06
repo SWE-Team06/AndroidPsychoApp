@@ -4,5 +4,6 @@ Kevin
 Malte
 Viktor
 Fabian
+René
 
 Das ist ein Test direkt in Android Studio.
