@@ -7,3 +7,6 @@ Fabian
 René
 
 Das ist ein Test direkt in Android Studio.
+Hier können noch ein paar andere Sachen stehen.
+
+
