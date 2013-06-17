@@ -14,4 +14,13 @@
         android:text="@string/hello"
         android:id="@+id/textView"/>
 
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="36dp">
+    </RelativeLayout>
+
 </RelativeLayout>
