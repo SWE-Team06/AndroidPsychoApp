@@ -8,18 +8,49 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/editText"
+            android:text="Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten gestrigen Signal um 23:00 Uhr Kontakt? Schätzen Sie bitte  zusätzlich die Gesamtdauer der Kontakte ein."
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:text="Mit wie vielen Interaktionspartnern hatten Sie seit dem letzten  gestrigen Signal um 23:00 Uhr Kontakt? Schätzen Sie bitte  zusätzlich die Gesamtdauer der Kontakte ein."/>
+            android:layout_centerHorizontal="true"/>
 
-    <android.inputmethodservice.ExtractEditText
+    <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Anzahl"
-            android:id="@+id/extractEditText"
+            android:inputType="number"
+            android:ems="5"
+            android:id="@+id/editText2"
+            android:hint="Anzahl"
+            android:enabled="false"
+            android:layout_above="@+id/button"
+            android:layout_toLeftOf="@+id/editText3"/>
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="5"
+            android:id="@+id/editText3"
+            android:hint="Stunden"
             android:layout_below="@+id/editText"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_alignRight="@+id/button"/>
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="5"
+            android:id="@+id/editText4"
+            android:hint="Minuten"
+            android:enabled="false"
+            android:layout_below="@+id/editText"
+            android:layout_toRightOf="@+id/editText3"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Speichern"
+            android:id="@+id/button"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/editText3"
+            android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
