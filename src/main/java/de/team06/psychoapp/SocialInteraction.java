@@ -113,8 +113,11 @@ public class SocialInteraction {
         this.responseTime = responseTime;
     }
 
-    public void setSkipped(boolean skipped) {
-        this.skipped = skipped;
+    public void setSkipped(int skipped) {
+        if(skipped == 0)
+            this.skipped = false;
+        else
+            this.skipped = true;
     }
 
     public void setNumberOfContacts(int numberOfContacts) {
