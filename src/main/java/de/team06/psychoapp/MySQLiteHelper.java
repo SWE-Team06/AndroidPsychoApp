@@ -11,6 +11,8 @@ import android.util.Log;
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_SOCIAL_INTERACTIONS = "interactions";
+    /* All columns */
+    public static final String[] TABLE_SOCIAL_INTERACTIONS_ALL = { "id", "code", "alarmtime", "responsetime", "skip", "contacts", "hours", "minutes" };
     public static final String COLUMN_ID = "id";
 
     private static final String DATABASE_NAME = "database.db";
@@ -19,7 +21,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     // Database creation sql statement
     private static final String DATABASE_CREATE = "CREATE TABLE "
             + TABLE_SOCIAL_INTERACTIONS + "(" + COLUMN_ID
-            + " integer primary key autoincrement, "
+            + " long primary key autoincrement, "
             + "code char(5) not null,"
             + "alarmtime integer,"
             + "responsetime integer default -77,"
