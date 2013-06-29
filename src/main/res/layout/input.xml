@@ -17,32 +17,36 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="5"
-            android:id="@+id/editText2"
+            android:id="@+id/anzahl"
             android:hint="Anzahl"
-            android:enabled="false"
+            android:enabled="true"
             android:layout_above="@+id/button"
-            android:layout_toLeftOf="@+id/editText3"/>
+            android:layout_toLeftOf="@+id/hours"
+            android:editable="true"/>
 
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="5"
-            android:id="@+id/editText3"
+            android:id="@+id/hours"
             android:hint="Stunden"
             android:layout_below="@+id/editText"
-            android:layout_alignRight="@+id/button"/>
+            android:layout_alignRight="@+id/button"
+            android:editable="true"
+            android:enabled="true"/>
 
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="5"
-            android:id="@+id/editText4"
+            android:id="@+id/minutes"
             android:hint="Minuten"
-            android:enabled="false"
+            android:enabled="true"
             android:layout_below="@+id/editText"
-            android:layout_toRightOf="@+id/editText3"/>
+            android:layout_toRightOf="@+id/hours"
+            android:editable="true"/>
 
     <Button
             android:layout_width="wrap_content"
@@ -50,7 +54,8 @@
             android:text="Speichern"
             android:id="@+id/button"
             android:layout_marginTop="12dp"
-            android:layout_below="@+id/editText3"
-            android:layout_centerHorizontal="true"/>
+            android:layout_below="@+id/hours"
+            android:layout_centerHorizontal="true"
+            android:onClick="click"/>
 
 </RelativeLayout>

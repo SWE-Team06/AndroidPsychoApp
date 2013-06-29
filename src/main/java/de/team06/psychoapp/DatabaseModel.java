@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +19,11 @@ public class DatabaseModel {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
+    private Context context;
 
     public DatabaseModel(Context context) {
         dbHelper = new MySQLiteHelper(context);
+        this.context = context;
     }
 
     public void open() throws SQLException {
@@ -31,19 +34,24 @@ public class DatabaseModel {
         dbHelper.close();
     }
 
-    public SocialInteraction createSocialInteraction(int alarmtime) {
+    public SocialInteraction createSocialInteraction(int alarmtime, String code) {
         ContentValues values = new ContentValues();
         values.put("alarmtime", alarmtime);
+        values.put("code", code);
 
         long insertId = database.insert(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS, null,
                 values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS,
-                MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
+                MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, "id = " + insertId, null,
                 null, null, null);
-        cursor.moveToFirst();
+        cursor.moveToNext();
+        //cursor.moveToFirst();
+        Toast.makeText(this.context, cursor.getCount(), Toast.LENGTH_SHORT).show();
+      /*  cursor.moveToFirst();
         SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
         cursor.close();
-        return newSocialInteraction;
+        return newSocialInteraction; */
+        return new SocialInteraction();
     }
 
     /**
@@ -86,14 +94,15 @@ public class DatabaseModel {
     private SocialInteraction cursorToSocialInteraction(Cursor cursor) {
         SocialInteraction socialInteraction = new SocialInteraction();
 
-        socialInteraction.setId(cursor.getLong(0));
+       System.out.println(cursor.getString(cursor.getColumnIndex("code")));
+       /* socialInteraction.setId(cursor.getInt(0));
         socialInteraction.setCode(cursor.getString(1));
         socialInteraction.setAlarmTime(cursor.getInt(2));
         socialInteraction.setResponseTime(cursor.getInt(3));
         socialInteraction.setSkipped(cursor.getInt(4));
         socialInteraction.setNumberOfContacts(cursor.getInt(5));
         socialInteraction.setHours(cursor.getInt(6));
-        socialInteraction.setMinutes(cursor.getInt(7));
+        socialInteraction.setMinutes(cursor.getInt(7));*/
 
         return socialInteraction;
     }

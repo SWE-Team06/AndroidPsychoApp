@@ -16,15 +16,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "id";
 
     private static final String DATABASE_NAME = "database.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "CREATE TABLE "
             + TABLE_SOCIAL_INTERACTIONS + "(" + COLUMN_ID
-            + " long primary key autoincrement, "
-            + "code char(5) not null,"
+            + " long auto_increment primary key, "
+            + "code varchar(5) not null,"
             + "alarmtime integer,"
-            + "responsetime integer default -77,"
+            + "responsetime integer default 0,"
             + "skip BOOL NOT NULL DEFAULT 1,"
             + "contacts integer,"
             + "hours integer,"

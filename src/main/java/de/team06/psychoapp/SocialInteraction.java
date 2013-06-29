@@ -28,7 +28,7 @@ public class SocialInteraction {
 
     public SocialInteraction() {
         // init here
-    }
+     }
 
     public long getId() {
         return id;
@@ -134,5 +134,19 @@ public class SocialInteraction {
 
     public void save(){
         // save socialInteraction to db for example
+    }
+
+    @Override
+    public String toString() {
+        return "SocialInteraction{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", alarmTime=" + alarmTime +
+                ", responseTime=" + responseTime +
+                ", skipped=" + skipped +
+                ", numberOfContacts=" + numberOfContacts +
+                ", hours=" + hours +
+                ", minutes=" + minutes +
+                '}';
     }
 }
