@@ -23,12 +23,13 @@ public class CSVExporter extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         database = new DatabaseModel(context);
+        interactions = database.getAllSocialInteractions();
         super.onCreate(savedInstanceState);
     }
 
-    private boolean saveCSV() {
+    public boolean saveCSV(List<SocialInteraction> list) {
 
-        interactions = database.getAllSocialInteractions();
+        List <SocialInteraction> interactions = list;
         String csvHeader = "Code;Datum;Alarmzeit;Antwortzeit;Abbruch;Kontakte;Stunden;Minuten \n";
         String csvValues = "";
 
