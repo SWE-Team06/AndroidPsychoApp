@@ -16,7 +16,13 @@ public class MainActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-        setContentView(R.layout.input);
+        setContentView(de.team06.psychoapp.R.layout.input);
+
+        /*
+            test alarm maker
+         */
+        //AlarmMaker testAlarm = new AlarmMaker(this);
+        //testAlarm.addAlarm(System.currentTimeMillis()+20000, TimeSection.FIRST_QUARTER);
 
         dbModel = new DatabaseModel(this);
         dbModel.open();

@@ -81,7 +81,7 @@ public class AlarmMaker
     }
 
 
-    public boolean addAlarm(int alarmTimeInFuture, TimeSection mapTheTimeQuarter)
+    public boolean addAlarm(long alarmTimeInFuture, TimeSection mapTheTimeQuarter)
     {
         /*
         assumption that alarm time:

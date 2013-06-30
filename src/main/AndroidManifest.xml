@@ -26,7 +26,6 @@
             </intent-filter>
         </activity>
         <activity android:name="SocialInteractionActivity"/>
-        <activity android:name=".SocialInteractionActivity"/>
 
         <receiver android:name="AlarmReceiver">
             <intent-filter>
