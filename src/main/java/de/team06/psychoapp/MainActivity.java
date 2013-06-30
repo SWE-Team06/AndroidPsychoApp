@@ -41,7 +41,9 @@ public class MainActivity extends Activity {
 
         Toast.makeText(this, anzahl + " SocialContacts and "+hours+"h "+minutes+" min", Toast.LENGTH_SHORT).show();
 
-        SocialInteraction socialInteraction = dbModel.createSocialInteraction(11880, "asdfg");
+        dbModel = new DatabaseModel(this);
+        dbModel.open();
+        SocialInteraction socialInteraction = dbModel.createSocialInteraction(118800, "asdfg");
 
         //Toast.makeText(this, socialInteraction.toString(), Toast.LENGTH_SHORT).show();
         /*

@@ -12,20 +12,21 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_SOCIAL_INTERACTIONS = "interactions";
     /* All columns */
-    public static final String[] TABLE_SOCIAL_INTERACTIONS_ALL = { "id", "code", "alarmtime", "responsetime", "skip", "contacts", "hours", "minutes" };
-    public static final String COLUMN_ID = "id";
+    public static final String[] TABLE_SOCIAL_INTERACTIONS_ALL = { "_id", "code", "alarmtime", "responsetime", "skip", "contacts", "hours", "minutes" };
+    public static final String COLUMN_ID = "_id";
 
     private static final String DATABASE_NAME = "database.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 12;
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "CREATE TABLE "
             + TABLE_SOCIAL_INTERACTIONS + "(" + COLUMN_ID
-            + " long auto_increment primary key, "
+            + " integer primary key, "
+           // + " INTEGER auto_increment primary key NOT NULL, "
             + "code varchar(5) not null,"
             + "alarmtime integer,"
             + "responsetime integer default 0,"
-            + "skip BOOL NOT NULL DEFAULT 1,"
+            + "skip int NOT NULL DEFAULT 1,"
             + "contacts integer,"
             + "hours integer,"
             + "minutes integer);";

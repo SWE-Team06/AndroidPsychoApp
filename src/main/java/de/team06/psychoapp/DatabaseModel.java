@@ -38,20 +38,33 @@ public class DatabaseModel {
         ContentValues values = new ContentValues();
         values.put("alarmtime", alarmtime);
         values.put("code", code);
+       /* values.put("responsetime", 11880);
+        values.put("skip", 0);
+        values.put("contacts", 1);
+        values.put("hours", 2);
+        values.put("minutes", 3); */
 
-        long insertId = database.insert(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS, null,
+        long insertId = dbHelper.getWritableDatabase().insert(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS, null,
                 values);
+      /*  String sql = "SELECT * FROM interactions";
+       Cursor cursor = dbHelper.getReadableDatabase().rawQuery(sql, null);
+       cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            Toast.makeText(this.context, ""+cursor.getInt(cursor.getColumnIndex("_id")) , Toast.LENGTH_SHORT).show();
+            cursor.moveToNext();
+        }
+        */
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS,
-                MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, "id = " + insertId, null,
+                MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, "_id = ?", new String[]{String.valueOf(insertId)},
                 null, null, null);
-        cursor.moveToNext();
-        //cursor.moveToFirst();
-        Toast.makeText(this.context, cursor.getCount(), Toast.LENGTH_SHORT).show();
-      /*  cursor.moveToFirst();
-        SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
+
+
+       cursor.moveToFirst();
+       SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
+       Toast.makeText(this.context, newSocialInteraction.toString(), Toast.LENGTH_SHORT).show();
+
         cursor.close();
-        return newSocialInteraction; */
-        return new SocialInteraction();
+        return newSocialInteraction;
     }
 
     /**
@@ -76,6 +89,7 @@ public class DatabaseModel {
                 MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, null, null, null, null, null);
 
         cursor.moveToFirst();
+
         while (!cursor.isAfterLast()) {
             SocialInteraction socialInteraction = cursorToSocialInteraction(cursor);
             socialInteractionArrayList.add(socialInteraction);
@@ -94,15 +108,14 @@ public class DatabaseModel {
     private SocialInteraction cursorToSocialInteraction(Cursor cursor) {
         SocialInteraction socialInteraction = new SocialInteraction();
 
-       System.out.println(cursor.getString(cursor.getColumnIndex("code")));
-       /* socialInteraction.setId(cursor.getInt(0));
+        socialInteraction.setId(cursor.getInt(cursor.getColumnIndex("_id")));
         socialInteraction.setCode(cursor.getString(1));
         socialInteraction.setAlarmTime(cursor.getInt(2));
         socialInteraction.setResponseTime(cursor.getInt(3));
         socialInteraction.setSkipped(cursor.getInt(4));
         socialInteraction.setNumberOfContacts(cursor.getInt(5));
         socialInteraction.setHours(cursor.getInt(6));
-        socialInteraction.setMinutes(cursor.getInt(7));*/
+        socialInteraction.setMinutes(cursor.getInt(7));
 
         return socialInteraction;
     }
