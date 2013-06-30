@@ -25,7 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="CSVExporter"/>
+        <activity android:name="SocialInteractionActivity"/>
+        <activity android:name=".SocialInteractionActivity"/>
 
         <receiver android:name="AlarmReceiver">
             <intent-filter>
