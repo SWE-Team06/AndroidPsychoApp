@@ -12,10 +12,11 @@ public class MainActivity extends Activity {
     private DatabaseModel dbModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
-        setContentView(R.layout.eingabe);
+        setContentView(R.layout.input);
 
         dbModel = new DatabaseModel(this);
         dbModel.open();
