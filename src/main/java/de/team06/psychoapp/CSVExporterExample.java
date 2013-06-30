@@ -49,8 +49,10 @@ public class CSVExporterExample extends Activity {
         dataset.setNumberOfContacts(2);
         interactions.add(dataset);
 
-        CSVExporter exporter = new CSVExporter();
-        exporter.saveCSV(interactions);
+        CSVExporter exporter = new CSVExporter(getApplicationContext());
+
+        Toast.makeText(view.getContext(),"" + exporter.exportCSV(interactions),Toast.LENGTH_SHORT).show();
+        Toast.makeText(view.getContext(),"" + exporter.dir,Toast.LENGTH_LONG).show();
 
     }
 }

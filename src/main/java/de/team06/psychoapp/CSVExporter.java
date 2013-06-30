@@ -1,12 +1,9 @@
 package de.team06.psychoapp;
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Environment;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.util.List;
 
@@ -15,19 +12,20 @@ import java.util.List;
  */
 
 
-public class CSVExporter extends Activity {
+public class CSVExporter {
 
-    Context context = getApplicationContext();
+    Context context;
     DatabaseModel database = null;
     List<SocialInteraction> interactions = null;
+    String dir;
 
-    public void onCreate(Bundle savedInstanceState) {
-        database = new DatabaseModel(context);
-        interactions = database.getAllSocialInteractions();
-        super.onCreate(savedInstanceState);
+    public CSVExporter(Context context) {
+        //database = new DatabaseModel(context);
+        //interactions = database.getAllSocialInteractions();
+        this.context = context;
     }
 
-    public boolean saveCSV(List<SocialInteraction> list) {
+    public boolean exportCSV(List<SocialInteraction> list) {
 
         List <SocialInteraction> interactions = list;
         String csvHeader = "Code;Datum;Alarmzeit;Antwortzeit;Abbruch;Kontakte;Stunden;Minuten \n";
@@ -44,6 +42,7 @@ public class CSVExporter extends Activity {
             String values = csvHeader + csvValues;
 
             File csv = new File(context.getExternalFilesDir(null), filename);
+            dir = "" +context.getExternalFilesDir(null);
             FileWriter fileWriter = new FileWriter(csv);
 
             fileWriter.write(values);
