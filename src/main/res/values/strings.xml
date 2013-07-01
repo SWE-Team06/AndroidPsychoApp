@@ -7,5 +7,6 @@
     </string>
     <string name="hello" >Hallo Leute!
     </string>
+    <string name="action_export">CSVExport</string>
 
 </resources>

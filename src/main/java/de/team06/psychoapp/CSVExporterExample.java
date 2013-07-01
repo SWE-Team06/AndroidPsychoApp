@@ -58,6 +58,6 @@ public class CSVExporterExample extends Activity {
 
         CSVExporter exporter = new CSVExporter();
 
-        Toast.makeText(view.getContext(),"" + exporter.exportCSV(interactions),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getApplicationContext(),"" + exporter.exportCSV(interactions),Toast.LENGTH_SHORT).show();
     }
 }
