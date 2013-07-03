@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference android:title="export CSV" >
+        <intent android:action="android.intent.action.VIEW"
+                android:data="http://www.example.com"
+                android:targetPackage="de.team06.psychoapp"
+                android:targetClass="de.team06.psychoapp.CSVExporterExample"/>
+    </Preference>
+</PreferenceScreen>

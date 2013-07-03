@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
         switch (item.getItemId())
         {
             case R.id.action_export : startActivity(new Intent(getApplicationContext(),CSVExporterExample.class));
+            case R.id.action_settings: startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
