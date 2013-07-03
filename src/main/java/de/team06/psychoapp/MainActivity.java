@@ -23,8 +23,8 @@ public class MainActivity extends Activity {
         /*
             test alarm maker
          */
-        //AlarmMaker testAlarm = new AlarmMaker(this);
-        //testAlarm.addAlarm(System.currentTimeMillis()+20000, TimeSection.FIRST_QUARTER);
+        AlarmMaker testAlarm = new AlarmMaker(this);
+        testAlarm.addAlarm(System.currentTimeMillis()+10000, TimeSection.FOURTH_QUARTER);
 
         dbModel = new DatabaseModel(this);
         dbModel.open();

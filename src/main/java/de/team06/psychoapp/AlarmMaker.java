@@ -48,14 +48,10 @@ public class AlarmMaker
     public AlarmMaker(Context ourAppScope)
     {
         /*
-            the intent will be start a suitable activity if alarm occurs, therefore we have to set a
-            reference to the activity class ("SocialInteractionActivity.class").
             the broadcast receiver contains an intent-filter to distinct broadcasts (intents),
             therefore we must equip our intent with a unique identifier ("uniqueAlarmIdentifier").
          */
-        Intent startSocialInteractionActivity = new Intent(ourAppScope, SocialInteractionActivity.class);  //we have to make the "SocialInteractionActivity"!!!
-        startSocialInteractionActivity.setAction(uniqueAlarmIdentifier);
-
+        Intent startSocialInteractionActivity = new Intent(uniqueAlarmIdentifier);
 
         /*
             first, an intent will be performed immediately, but we need a delayed intent
@@ -63,10 +59,10 @@ public class AlarmMaker
             broadcast so we invoke getBroadcast(...) to satisfy these.
             the flag "FLAG_UPDATE_CURRENT" updates the current preliminary intent.
          */
-        forFirstTimeSection = PendingIntent.getBroadcast(ourAppScope, 33, startSocialInteractionActivity, PendingIntent.FLAG_UPDATE_CURRENT);
-        forSecondTimeSection = PendingIntent.getBroadcast(ourAppScope, 133, startSocialInteractionActivity, PendingIntent.FLAG_UPDATE_CURRENT);
-        forThirdTimeSection = PendingIntent.getBroadcast(ourAppScope, 1337, startSocialInteractionActivity, PendingIntent.FLAG_UPDATE_CURRENT);
-        forFourthTimeSection = PendingIntent.getBroadcast(ourAppScope, 31337, startSocialInteractionActivity, PendingIntent.FLAG_UPDATE_CURRENT);
+        forFirstTimeSection = PendingIntent.getBroadcast(ourAppScope, 8001, startSocialInteractionActivity, PendingIntent.FLAG_UPDATE_CURRENT);
+        forSecondTimeSection = PendingIntent.getBroadcast(ourAppScope,8002, startSocialInteractionActivity, PendingIntent.FLAG_UPDATE_CURRENT);
+        forThirdTimeSection = PendingIntent.getBroadcast(ourAppScope, 8003, startSocialInteractionActivity, PendingIntent.FLAG_UPDATE_CURRENT);
+        forFourthTimeSection = PendingIntent.getBroadcast(ourAppScope, 8004, startSocialInteractionActivity, PendingIntent.FLAG_UPDATE_CURRENT);
 
         /*
             on receiving the right intent (broadcast) the receiver starts the
@@ -96,21 +92,19 @@ public class AlarmMaker
          */
         PendingIntent theSuitableIntent = null;
 
-        if(mapTheTimeQuarter==TimeSection.FIRST_QUARTER)
+        switch(mapTheTimeQuarter)
         {
-            theSuitableIntent = forFirstTimeSection;
-        }
-        if(mapTheTimeQuarter==TimeSection.SECOND_QUARTER)
-        {
-            theSuitableIntent = forSecondTimeSection;
-        }
-        if(mapTheTimeQuarter==TimeSection.THIRD_QUARTER)
-        {
-            theSuitableIntent = forThirdTimeSection;
-        }
-        if(mapTheTimeQuarter==TimeSection.FOURTH_QUARTER)
-        {
-            theSuitableIntent = forFourthTimeSection;
+            case FIRST_QUARTER:
+                theSuitableIntent = forFirstTimeSection;
+                break;
+            case SECOND_QUARTER:
+                theSuitableIntent = forSecondTimeSection;
+                break;
+            case THIRD_QUARTER:
+                theSuitableIntent = forThirdTimeSection;
+                break;
+            case FOURTH_QUARTER:
+                theSuitableIntent = forFourthTimeSection;
         }
 
         /*
@@ -127,7 +121,7 @@ public class AlarmMaker
         /*
         deletes all alarms that was added from this app
          */
-       // am.cancel(pi);
+        // am.cancel(pi);
         return false;
     }
 
