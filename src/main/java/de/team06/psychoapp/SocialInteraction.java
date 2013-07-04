@@ -43,6 +43,19 @@ public class SocialInteraction {
     }
 
     /**
+     * Get the date of the Alarm formatted dd.mm.yyyy as string
+     * @return String alarmDate
+     */
+    public String getAlarmDateCSV() {
+        Date date = new Date();
+        date.setTime((long)alarmTime*1000);
+
+        DateFormat dformat = new SimpleDateFormat( "dd.MM.yy" );
+
+        return dformat.format(date);
+    }
+
+    /**
      * Get the Alarm Time formatted hh:mm as string
      * @return String alarmTime
      */
