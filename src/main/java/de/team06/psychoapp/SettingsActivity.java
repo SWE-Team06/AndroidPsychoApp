@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 /**
- * Created by Kevin on 03.07.13.
+ * Created by Kevin on 03.07.13. It´s so fucking awesome.
  */
 public class SettingsActivity extends PreferenceActivity {
     @Override
