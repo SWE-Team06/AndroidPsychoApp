@@ -55,7 +55,7 @@ public class DatabaseModel {
         }
         */
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS,
-                MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, "_id = ?", new String[]{String.valueOf(insertId)},
+                MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, MySQLiteHelper.COLUMN_ID + " = ?", new String[]{String.valueOf(insertId)},
                 null, null, null);
 
 
@@ -76,6 +76,12 @@ public class DatabaseModel {
         System.out.println("SocialInteraction with id " + id + " deleted.");
         database.delete(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS, MySQLiteHelper.COLUMN_ID
                 + " = " + id, null);
+    }
+
+    public void updateSocialInteraction(SocialInteraction socialInteraction) {
+        long id = socialInteraction.getId();
+        System.out.println("SocialInteraction with id " + id + " updated.");
+        database.update(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS, socialInteraction.toContentValues(), MySQLiteHelper.COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
     /**

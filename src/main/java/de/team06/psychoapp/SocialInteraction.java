@@ -3,9 +3,12 @@ package de.team06.psychoapp;
 /**
  * Created by Malte on 28.06.13.
  */
+import android.content.ContentValues;
+
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class SocialInteraction {
 
@@ -40,6 +43,19 @@ public class SocialInteraction {
 
     public int getAlarmTime() {
         return alarmTime;
+    }
+
+    /**
+     * Get the date of the Alarm formatted dd.mm.yyyy as string
+     * @return String alarmDate
+     */
+    public String getAlarmDateCSV() {
+        Date date = new Date();
+        date.setTime((long)alarmTime*1000);
+
+        DateFormat dformat = new SimpleDateFormat( "dd.MM.yy" );
+
+        return dformat.format(date);
     }
 
     /**
@@ -148,5 +164,19 @@ public class SocialInteraction {
                 ", hours=" + hours +
                 ", minutes=" + minutes +
                 '}';
+    }
+
+    public ContentValues toContentValues(){
+        ContentValues values = new ContentValues();
+
+        values.put("code", code);
+        values.put("alarmtime", alarmTime);
+        values.put("responsetime", responseTime);
+        values.put("skip", this.isSkippedCSV());
+        values.put("contacts", numberOfContacts);
+        values.put("hours", hours);
+        values.put("minutes", minutes);
+
+        return values;
     }
 }
