@@ -39,6 +39,7 @@ public class AlarmMaker
         we create a broadcast receiver in the manifest. at the startup of our app
         the android system creates a new instance of "AlarmReceiver", automatically.
         if the right broadcast message comes up the callback method "onReceive" of
+
         "AlarmReceiver" starts the new activity "SocialInteractionActivity"
      */
     AlarmManager am;
@@ -103,7 +104,7 @@ public class AlarmMaker
         /*
             set the alarm repeatedly, the alarms can come up in sleep mode (RTC_WAKEUP)
          */
-        am.setRepeating(AlarmManager.RTC_WAKEUP, alarmTimeInFuture, alarmTimeInFuture + dayInMilliseconds, theSuitableIntent);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, alarmTimeInFuture, AlarmManager.INTERVAL_DAY, theSuitableIntent);
 
         return true;
     }

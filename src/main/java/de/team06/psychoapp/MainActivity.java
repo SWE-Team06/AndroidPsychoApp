@@ -34,8 +34,8 @@ public class MainActivity extends Activity {
 
         switch (item.getItemId())
         {
-            case R.id.action_settings: startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
-            case R.id.action_setAlarm: setDemoAlarm();
+            case R.id.action_settings: startActivity(new Intent(getApplicationContext(),SettingsActivity.class)); break;
+            case R.id.action_setAlarm: setDemoAlarm();  break;
         }
 
         return super.onOptionsItemSelected(item);
