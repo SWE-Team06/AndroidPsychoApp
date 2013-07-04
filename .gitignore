@@ -1,0 +1,8 @@
+.idea/*
+build/*
+.src/*
+libs/*
+src/main/gen/de/team06/psychoapp/Manifest.java
+src/main/gen/de/team06/psychoapp/BuildConfig.java
+src/main/main.iml
+src/main/gen/de/team06/psychoapp/R.java

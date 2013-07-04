@@ -26,6 +26,12 @@
         <activity android:name=".CSVExporterExample"
                 android:label="CSVExport">
         </activity>
+
+        <receiver android:name="AlarmReceiver">
+            <intent-filter>
+                <action android:name="de.team06.psychoapp.ALARM.TimeToDisclosureYourSocialAffairs"/>
+            </intent-filter>
+        </receiver>
         <activity
                 android:name=".SettingsActivity"
                 android:label="Settings"/>
