@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="alarmzeiten_morgen_entries">
+        <item>9.00 Uhr</item>
+        <item>10.00 Uhr</item>
+        <item>11.00 Uhr</item>
+        <item>12.00 Uhr</item>
+    </string-array>
+    <string-array name="alarmzeiten_morgen_values">
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+</resources>

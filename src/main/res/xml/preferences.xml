@@ -1,9 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference android:title="export CSV" >
-        <intent android:action="android.intent.action.VIEW"
-                android:data="http://www.example.com"
-                android:targetPackage="de.team06.psychoapp"
-                android:targetClass="de.team06.psychoapp.CSVExporterExample"/>
-    </Preference>
+    <PreferenceCategory android:title="Allgemein">
+        <EditTextPreference
+                android:title="Probandencode"
+                android:key="code">
+        </EditTextPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Alarmzeiten">
+        <ListPreference
+                android:title="Morgen"
+                android:key="alarm_morgen"
+                android:entries="@array/alarmzeiten_morgen_entries"
+                android:entryValues="@array/alarmzeiten_morgen_values">
+        </ListPreference>
+        <ListPreference
+                android:title="Mittag"
+                android:key="alarm_mittag"
+                android:entries="@array/alarmzeiten_morgen_entries"
+                android:entryValues="@array/alarmzeiten_morgen_values">
+        </ListPreference>
+        <ListPreference
+                android:title="Nachmittag"
+                android:key="alarm_nachmittag"
+                android:entries="@array/alarmzeiten_morgen_entries"
+                android:entryValues="@array/alarmzeiten_morgen_values">
+        </ListPreference>
+        <ListPreference
+                android:title="Abend"
+                android:key="alarm_abend"
+                android:entries="@array/alarmzeiten_morgen_entries"
+                android:entryValues="@array/alarmzeiten_morgen_values">
+        </ListPreference>
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="Administration">
+        <PreferenceScreen android:title="Backend">
+            <Preference android:title="export CSV">
+                <intent
+                        android:action="android.intent.action.VIEW"
+                        android:data="http://www.example.com"
+                        android:targetPackage="de.team06.psychoapp"
+                        android:targetClass="de.team06.psychoapp.CSVExporterExample"/>
+            </Preference>
+            <Preference android:title="reset">
+
+            </Preference>
+        </PreferenceScreen>
+    </PreferenceCategory>
 </PreferenceScreen>
