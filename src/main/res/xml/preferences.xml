@@ -16,20 +16,20 @@
         <ListPreference
                 android:title="Mittag"
                 android:key="alarm_mittag"
-                android:entries="@array/alarmzeiten_morgen_entries"
-                android:entryValues="@array/alarmzeiten_morgen_values">
+                android:entries="@array/alarmzeiten_mittag_entries"
+                android:entryValues="@array/alarmzeiten_mittag_values">
         </ListPreference>
         <ListPreference
                 android:title="Nachmittag"
                 android:key="alarm_nachmittag"
-                android:entries="@array/alarmzeiten_morgen_entries"
-                android:entryValues="@array/alarmzeiten_morgen_values">
+                android:entries="@array/alarmzeiten_nachmittag_entries"
+                android:entryValues="@array/alarmzeiten_nachmittag_values">
         </ListPreference>
         <ListPreference
                 android:title="Abend"
                 android:key="alarm_abend"
-                android:entries="@array/alarmzeiten_morgen_entries"
-                android:entryValues="@array/alarmzeiten_morgen_values">
+                android:entries="@array/alarmzeiten_abend_entries"
+                android:entryValues="@array/alarmzeiten_abend_values">
         </ListPreference>
     </PreferenceCategory>
     <PreferenceCategory
