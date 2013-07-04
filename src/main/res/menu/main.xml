@@ -3,5 +3,10 @@
             android:id="@+id/action_settings"
             android:title="@string/action_settings"
             android:orderInCategory="100"
-            android:showAsAction="ifRoom"/>
+            android:showAsAction="collapseActionView"/>
+    <item
+            android:id="@+id/action_setAlarm"
+            android:title="Demo Alarm"
+            android:orderInCategory="90"
+            android:showAsAction="collapseActionView"/>
 </menu>

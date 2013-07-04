@@ -20,14 +20,6 @@ public class MainActivity extends Activity {
         //setContentView(R.layout.activity_main);
         setContentView(de.team06.psychoapp.R.layout.input);
 
-        /*
-            test alarm maker
-         */
-        AlarmMaker testAlarm = new AlarmMaker(this);
-        testAlarm.addAlarm(System.currentTimeMillis()+10000, TimeSection.FOURTH_QUARTER);
-
-        dbModel = new DatabaseModel(this);
-        dbModel.open();
     }
 
 
@@ -43,9 +35,21 @@ public class MainActivity extends Activity {
         switch (item.getItemId())
         {
             case R.id.action_settings: startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+            case R.id.action_setAlarm: setDemoAlarm();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setDemoAlarm() {
+                /*
+            test alarm maker
+         */
+        AlarmMaker testAlarm = new AlarmMaker(this);
+        testAlarm.addAlarm(System.currentTimeMillis()+10000, TimeSection.FOURTH_QUARTER);
+
+        dbModel = new DatabaseModel(this);
+        dbModel.open();
     }
 
     public void click (View view) {
