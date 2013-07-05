@@ -1,8 +1,10 @@
 package de.team06.psychoapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,14 +16,15 @@ public class MainActivity extends Activity {
     private DatabaseModel dbModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
         setContentView(de.team06.psychoapp.R.layout.input);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        if (preferences.getBoolean("firstRun", true) == true) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -32,10 +35,13 @@ public class MainActivity extends Activity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
-            case R.id.action_settings: startActivity(new Intent(getApplicationContext(),SettingsActivity.class)); break;
-            case R.id.action_setAlarm: setDemoAlarm();  break;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                break;
+            case R.id.action_setAlarm:
+                setDemoAlarm();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -46,13 +52,13 @@ public class MainActivity extends Activity {
             test alarm maker
          */
         AlarmMaker testAlarm = new AlarmMaker(this);
-        testAlarm.addAlarm(System.currentTimeMillis()+10000, TimeSection.FOURTH_QUARTER);
+        testAlarm.addAlarm(System.currentTimeMillis() + 10000, TimeSection.FOURTH_QUARTER);
 
         dbModel = new DatabaseModel(this);
         dbModel.open();
     }
 
-    public void click (View view) {
+    public void click(View view) {
         EditText anzahlEditText = (EditText) findViewById(R.id.anzahl);
         String anzahl = anzahlEditText.getText().toString();
 
@@ -62,7 +68,7 @@ public class MainActivity extends Activity {
         EditText minutesEditText = (EditText) findViewById(R.id.minutes);
         String minutes = minutesEditText.getText().toString();
 
-        Toast.makeText(this, anzahl + " SocialContacts and "+hours+"h "+minutes+" min", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, anzahl + " SocialContacts and " + hours + "h " + minutes + " min", Toast.LENGTH_SHORT).show();
 
         dbModel = new DatabaseModel(this);
         dbModel.open();
@@ -79,5 +85,5 @@ public class MainActivity extends Activity {
         finish();
         */
     }
-    
+
 }

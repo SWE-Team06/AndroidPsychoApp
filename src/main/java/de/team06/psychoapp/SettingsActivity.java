@@ -20,6 +20,12 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onPause() {
         setAlarm();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        if (preferences.getBoolean("firstRun", true) == true) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("firstRun", false);
+            editor.commit();
+        }
         super.onPause();
     }
 
