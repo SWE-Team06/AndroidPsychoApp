@@ -14,6 +14,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     private DatabaseModel dbModel;
+    private long socialInteractionID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,9 @@ public class MainActivity extends Activity {
         if (preferences.getBoolean("firstRun", true) == true) {
             startActivity(new Intent(this, SettingsActivity.class));
         }
+
+        // Recieve
+        socialInteractionID = getIntent().getIntExtra("socialInteractionID", -1);
     }
 
     @Override
@@ -48,14 +52,11 @@ public class MainActivity extends Activity {
     }
 
     public void setDemoAlarm() {
-                /*
+        /*
             test alarm maker
          */
         AlarmMaker testAlarm = new AlarmMaker(this);
         testAlarm.addAlarm(System.currentTimeMillis() + 10000, TimeSection.FOURTH_QUARTER);
-
-        dbModel = new DatabaseModel(this);
-        dbModel.open();
     }
 
     public void click(View view) {
@@ -72,18 +73,25 @@ public class MainActivity extends Activity {
 
         dbModel = new DatabaseModel(this);
         dbModel.open();
-        SocialInteraction socialInteraction = dbModel.createSocialInteraction(118800, "asdfg");
 
-        //Toast.makeText(this, socialInteraction.toString(), Toast.LENGTH_SHORT).show();
-        /*
-        DatePicker dp = (DatePicker) findViewById(R.id.datePicker);
-        Calendar cal = Calendar.getInstance();
-        cal.set(dp.getYear(), dp.getMonth(), dp.getDayOfMonth());
-        Toast.makeText(this, text + " wurde eingegeben", Toast.LENGTH_SHORT).show();
+        if (this.socialInteractionID != -1){
+            // Get SocialInteraction object from database
+            SocialInteraction socialInteraction = dbModel.getSocialInteractionByID(this.socialInteractionID);
 
-        MainActivity.todolist.add(aufgabe);
-        finish();
-        */
+            // Update object
+            socialInteraction.setNumberOfContacts(Integer.valueOf(anzahl));
+            socialInteraction.setHours(Integer.valueOf(hours));
+            socialInteraction.setMinutes(Integer.valueOf(minutes));
+            socialInteraction.setSkipped(0);
+            socialInteraction.setResponseTime(System.currentTimeMillis());
+
+            // Save object
+            dbModel.updateSocialInteraction(socialInteraction);
+        }
+        else
+            Toast.makeText(this, "Fehler: Es wurde keine SocialInteractionID übergeben!", Toast.LENGTH_SHORT).show();
+
+        dbModel.close();
     }
 
 }
