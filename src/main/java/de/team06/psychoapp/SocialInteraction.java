@@ -106,7 +106,7 @@ public class SocialInteraction {
         Date date = new Date();
         date.setTime((long)responseTime*1000);
 
-        DateFormat dformat = new SimpleDateFormat( "hh:mm" );
+        DateFormat dformat = new SimpleDateFormat( "HH:mm" );
 
         return dformat.format(date);
     }
