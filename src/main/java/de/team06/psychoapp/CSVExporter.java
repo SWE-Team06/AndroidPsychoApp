@@ -23,7 +23,7 @@ public class CSVExporter {
         String csvValues = "";
 
         for (SocialInteraction s : interactions) {
-            csvValues = s.getCode() + ";" + s.getAlarmDateCSV() + ";" + s.getAlarmTimeCSV() + ";" + s.getResponseTimeCSV() + ";" + s.isSkippedCSV() + ";" + s.getNumberOfContacts() + ";" + s.getHours() + ";" + s.getMinutes() + "\n";
+            csvValues += s.getCode() + ";" + s.getAlarmDateCSV() + ";" + s.getAlarmTimeCSV() + ";" + s.getResponseTimeCSV() + ";" + s.isSkippedCSV() + ";" + s.getNumberOfContacts() + ";" + s.getHours() + ";" + s.getMinutes() + "\n";
         }
 
         if (isExternalStorageWritable()) {
