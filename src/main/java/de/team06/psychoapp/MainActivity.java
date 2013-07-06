@@ -27,7 +27,8 @@ public class MainActivity extends Activity {
         }
 
         // Recieve
-        socialInteractionID = getIntent().getIntExtra("socialInteractionID", -1);
+        socialInteractionID = getIntent().getLongExtra("socialInteractionID", -1);
+        Toast.makeText(this.getApplicationContext(), socialInteractionID+"", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -74,9 +75,9 @@ public class MainActivity extends Activity {
         dbModel = new DatabaseModel(this);
         dbModel.open();
 
-        if (this.socialInteractionID != -1){
+        if (socialInteractionID != -1){
             // Get SocialInteraction object from database
-            SocialInteraction socialInteraction = dbModel.getSocialInteractionByID(this.socialInteractionID);
+            SocialInteraction socialInteraction = dbModel.getSocialInteractionByID(socialInteractionID);
 
             // Update object
             socialInteraction.setNumberOfContacts(Integer.valueOf(anzahl));

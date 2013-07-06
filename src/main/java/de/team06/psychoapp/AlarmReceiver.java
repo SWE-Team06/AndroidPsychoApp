@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.widget.Toast;
 
 /**
  * Created by Andi on 30.06.13.
@@ -47,6 +48,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(ourAppScope, MainActivity.class);
         resultIntent.putExtra("socialInteractionID", interaction.getId());
+        Toast.makeText(ourAppScope, interaction.getId()+"", Toast.LENGTH_SHORT).show();
         PendingIntent resultPendingIntent = PendingIntent.getActivity(ourAppScope, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         mBuilder.setContentIntent(resultPendingIntent);
