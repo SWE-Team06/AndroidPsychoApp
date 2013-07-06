@@ -83,7 +83,7 @@ public class DatabaseModel {
         return newSocialInteraction;
     }
 
-    /**
+    /** Get last social interaction from database
      * @return SocialInteraction | null
      */
     public SocialInteraction getLastSocialInteraction() {

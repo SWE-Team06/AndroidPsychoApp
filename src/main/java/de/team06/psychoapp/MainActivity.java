@@ -29,17 +29,32 @@ public class MainActivity extends Activity {
 
         // Recieve
         socialInteractionID = getIntent().getLongExtra("socialInteractionID", -1);
-        Toast.makeText(this.getApplicationContext(), socialInteractionID+"", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this.getApplicationContext(), socialInteractionID + "", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         // social interactionID is not passed, for example app was started manually
-        if(socialInteractionID == -1){
+        if (socialInteractionID == -1) {
             dbModel = new DatabaseModel(this);
             dbModel.open();
 
             SocialInteraction lastSocialInteraction = dbModel.getLastSocialInteraction();
-            if(lastSocialInteraction != null)
+
+            if (lastSocialInteraction != null && lastSocialInteraction.isSkipped() == true)
                 socialInteractionID = lastSocialInteraction.getId();
+                // no alarm was triggered
+            else {
+                // Disable Button
+                Button button = (Button) findViewById(R.id.button);
+                button.setEnabled(false);
+            }
+
         }
+
+        Toast.makeText(this.getApplicationContext(), socialInteractionID + "", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -86,7 +101,7 @@ public class MainActivity extends Activity {
         dbModel = new DatabaseModel(this);
         dbModel.open();
 
-        if (socialInteractionID != -1){
+        if (socialInteractionID != -1) {
             // Get SocialInteraction object from database
             SocialInteraction socialInteraction = dbModel.getSocialInteractionByID(socialInteractionID);
 
@@ -105,8 +120,7 @@ public class MainActivity extends Activity {
             button.setEnabled(false);
 
             Toast.makeText(this, "Vielen Dank für die Eingabe!", Toast.LENGTH_LONG).show();
-        }
-        else
+        } else
             Toast.makeText(this, "Fehler: Es wurde keine SocialInteractionID übergeben!", Toast.LENGTH_SHORT).show();
 
         dbModel.close();
