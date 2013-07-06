@@ -30,6 +30,16 @@ public class MainActivity extends Activity {
         // Recieve
         socialInteractionID = getIntent().getLongExtra("socialInteractionID", -1);
         Toast.makeText(this.getApplicationContext(), socialInteractionID+"", Toast.LENGTH_SHORT).show();
+
+        // social interactionID is not passed, for example app was started manually
+        if(socialInteractionID == -1){
+            dbModel = new DatabaseModel(this);
+            dbModel.open();
+
+            SocialInteraction lastSocialInteraction = dbModel.getLastSocialInteraction();
+            if(lastSocialInteraction != null)
+                socialInteractionID = lastSocialInteraction.getId();
+        }
     }
 
     @Override

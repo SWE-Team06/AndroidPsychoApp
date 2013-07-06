@@ -66,6 +66,7 @@ public class DatabaseModel {
 
     /**
      * Get SocialInteraction object from database by ID
+     *
      * @param long id
      * @return SocialInteraction
      */
@@ -78,6 +79,20 @@ public class DatabaseModel {
         cursor.moveToFirst();
         SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
 
+        cursor.close();
+        return newSocialInteraction;
+    }
+
+    /**
+     * @return SocialInteraction | null
+     */
+    public SocialInteraction getLastSocialInteraction() {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS,
+                MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, null, null,
+                null, null, MySQLiteHelper.COLUMN_ID + " DESC", "1");
+
+        cursor.moveToFirst();
+        SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
         cursor.close();
         return newSocialInteraction;
     }
@@ -127,20 +142,22 @@ public class DatabaseModel {
      * Create a SocialInteraction object from db-cursor
      *
      * @param cursor SQLite-Cursor
-     * @return SocialInteraction
+     * @return SocialInteraction | null
      */
     private SocialInteraction cursorToSocialInteraction(Cursor cursor) {
-        SocialInteraction socialInteraction = new SocialInteraction();
+        if (cursor.getCount() > 0) {
+            SocialInteraction socialInteraction = new SocialInteraction();
 
-        socialInteraction.setId(cursor.getInt(cursor.getColumnIndex("_id")));
-        socialInteraction.setCode(cursor.getString(1));
-        socialInteraction.setAlarmTime(cursor.getInt(2));
-        socialInteraction.setResponseTime(cursor.getInt(3));
-        socialInteraction.setSkipped(cursor.getInt(4));
-        socialInteraction.setNumberOfContacts(cursor.getInt(5));
-        socialInteraction.setHours(cursor.getInt(6));
-        socialInteraction.setMinutes(cursor.getInt(7));
+            socialInteraction.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+            socialInteraction.setCode(cursor.getString(1));
+            socialInteraction.setAlarmTime(cursor.getInt(2));
+            socialInteraction.setResponseTime(cursor.getInt(3));
+            socialInteraction.setSkipped(cursor.getInt(4));
+            socialInteraction.setNumberOfContacts(cursor.getInt(5));
+            socialInteraction.setHours(cursor.getInt(6));
+            socialInteraction.setMinutes(cursor.getInt(7));
 
-        return socialInteraction;
+            return socialInteraction;
+        } else return null;
     }
 }
