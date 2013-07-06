@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -11,16 +13,20 @@ import java.util.Calendar;
  * Created by Kevin on 03.07.13. It´s so fucking awesome.
  */
 public class SettingsActivity extends PreferenceActivity {
+
+    SharedPreferences preferences;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+        preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
     }
 
     @Override
     protected void onPause() {
         setAlarm();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+
         if (preferences.getBoolean("firstRun", true) == true) {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("firstRun", false);
@@ -29,14 +35,19 @@ public class SettingsActivity extends PreferenceActivity {
         super.onPause();
     }
 
+    public void reset() {
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
     public void setAlarm() {
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-
-        int alarm1 = Integer.parseInt(preferences.getString("alarm_morgen","-1"));
-        int alarm2 = Integer.parseInt(preferences.getString("alarm_mittag","-1"));
-        int alarm3 = Integer.parseInt(preferences.getString("alarm_nachmittag","-1"));
-        int alarm4 = Integer.parseInt(preferences.getString("alarm_abend","-1"));
+        int alarm1 = Integer.parseInt(preferences.getString("alarm_morgen", "-1"));
+        int alarm2 = Integer.parseInt(preferences.getString("alarm_mittag", "-1"));
+        int alarm3 = Integer.parseInt(preferences.getString("alarm_nachmittag", "-1"));
+        int alarm4 = Integer.parseInt(preferences.getString("alarm_abend", "-1"));
 
         Calendar cal1 = Calendar.getInstance();
 

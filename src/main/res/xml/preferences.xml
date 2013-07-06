@@ -38,12 +38,10 @@
             <Preference android:title="export CSV">
                 <intent
                         android:action="android.intent.action.VIEW"
-                        android:data="http://www.example.com"
                         android:targetPackage="de.team06.psychoapp"
                         android:targetClass="de.team06.psychoapp.CSVExporterExample"/>
             </Preference>
             <Preference android:title="reset">
-
             </Preference>
         </PreferenceScreen>
     </PreferenceCategory>

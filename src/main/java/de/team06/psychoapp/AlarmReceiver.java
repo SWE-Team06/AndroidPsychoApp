@@ -28,8 +28,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
         DatabaseModel dbmodel = new DatabaseModel(ourAppScope);
+        dbmodel.open();
         SocialInteraction interaction = dbmodel.createSocialInteraction(System.currentTimeMillis(), preferences.getString("code", ""));
-
+        dbmodel.close();
         long[] vibratePattern = {0, 1500, 800};
 
         //Define sound URI
