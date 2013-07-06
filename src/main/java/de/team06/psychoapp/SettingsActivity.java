@@ -1,14 +1,11 @@
 package de.team06.psychoapp;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -27,7 +24,6 @@ public class SettingsActivity extends PreferenceActivity {
 
         myPrefListner = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                Toast.makeText(getApplicationContext(), key, Toast.LENGTH_LONG).show();
                 // ProbandenCode was changed
                 if (key.equals("code")) {
                     // Create first socialInteraction in database with current time
@@ -35,6 +31,8 @@ public class SettingsActivity extends PreferenceActivity {
                     dbModel.open();
                     SocialInteraction newSocialInteraction = dbModel.createSocialInteraction(System.currentTimeMillis(), preferences.getString("code", ""));
                     dbModel.close();
+
+                    setStatusProbandencodeButton();
                 }
             }
         };
@@ -46,15 +44,7 @@ public class SettingsActivity extends PreferenceActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         /*ProbandenCode Ceck-Routine*/
-
-        String code = preferences.getString("code", "");
-        Intent intent = getIntent();
-        String action = intent.getAction();
-        Toast.makeText(this.getApplicationContext(), action, Toast.LENGTH_LONG).show();
-
-        if (code.length() != 0) {
-            this.findPreference("code").setEnabled(false);
-        }
+        setStatusProbandencodeButton();
 
     }
 
@@ -95,6 +85,23 @@ public class SettingsActivity extends PreferenceActivity {
         super.onResume();
         // Register OnSharedPreferenceChangeListener
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).registerOnSharedPreferenceChangeListener(myPrefListner);
+        setStatusProbandencodeButton();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setStatusProbandencodeButton();
+    }
+
+    private void setStatusProbandencodeButton() {
+    /*ProbandenCode Ceck-Routine*/
+        String code = preferences.getString("code", "");
+        if (code.length() != 0) {
+            this.findPreference("code").setEnabled(false);
+        }
+        else
+            this.findPreference("code").setEnabled(true);
     }
 
     public void setAlarm() {
