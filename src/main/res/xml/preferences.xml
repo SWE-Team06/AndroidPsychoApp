@@ -10,24 +10,28 @@
         <ListPreference
                 android:title="Morgen"
                 android:key="alarm_morgen"
+                android:defaultValue="9"
                 android:entries="@array/alarmzeiten_morgen_entries"
                 android:entryValues="@array/alarmzeiten_morgen_values">
         </ListPreference>
         <ListPreference
                 android:title="Mittag"
                 android:key="alarm_mittag"
+                android:defaultValue="13"
                 android:entries="@array/alarmzeiten_mittag_entries"
                 android:entryValues="@array/alarmzeiten_mittag_values">
         </ListPreference>
         <ListPreference
                 android:title="Nachmittag"
                 android:key="alarm_nachmittag"
+                android:defaultValue="16"
                 android:entries="@array/alarmzeiten_nachmittag_entries"
                 android:entryValues="@array/alarmzeiten_nachmittag_values">
         </ListPreference>
         <ListPreference
                 android:title="Abend"
                 android:key="alarm_abend"
+                android:defaultValue="20"
                 android:entries="@array/alarmzeiten_abend_entries"
                 android:entryValues="@array/alarmzeiten_abend_values">
         </ListPreference>
@@ -42,6 +46,10 @@
                         android:targetClass="de.team06.psychoapp.CSVExporterExample"/>
             </Preference>
             <Preference android:title="reset">
+                    <intent android:action="android.intent.action.VIEW"
+                            android:targetPackage="de.team06.psychoapp"
+                            android:targetClass="de.team06.psychoapp.reset"/>
+
             </Preference>
         </PreferenceScreen>
     </PreferenceCategory>
