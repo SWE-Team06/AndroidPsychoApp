@@ -97,6 +97,20 @@ public class DatabaseModel {
         return newSocialInteraction;
     }
 
+    /** Get last unskipped social interaction from database
+     * @return SocialInteraction | null
+     */
+    public SocialInteraction getLastUnskippedSocialInteraction() {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS,
+                MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, "skip = ?", new String[]{"0"},
+                null, null, MySQLiteHelper.COLUMN_ID + " DESC", "1");
+
+        cursor.moveToFirst();
+        SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
+        cursor.close();
+        return newSocialInteraction;
+    }
+
     /**
      * Delete given SocialInteraction from database
      *

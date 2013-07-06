@@ -9,6 +9,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class SocialInteraction {
 
@@ -76,6 +77,19 @@ public class SocialInteraction {
         return dformat.format(date);
     }
 
+    /**
+     * Get the Alarm Time formatted EEEE as string
+     * @return String alarmTime
+     */
+    public String getAlarmDayCSV() {
+        Date date = new Date();
+        date.setTime((long)alarmTime * 1000);
+
+        DateFormat dformat = new SimpleDateFormat( "EEEE", Locale.GERMAN );
+
+        return dformat.format(date);
+    }
+
 
     /**
      * Returns responseTime in msec since 1.1.1970 00:00 UTC
@@ -106,8 +120,8 @@ public class SocialInteraction {
      * @return int skipped (0|1)
      */
     public int isSkippedCSV() {
-        if (isSkipped()) return 0;
-        else return 1;
+        if (isSkipped()) return 1;
+        else return 0;
     }
 
     public int getNumberOfContacts() {
