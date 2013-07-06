@@ -41,10 +41,18 @@ public class reset extends Activity {
     }
 
     public void reset() {
+        // Clear shared preferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
+
+        // Clear database
+        DatabaseModel databaseModel = new DatabaseModel(getApplicationContext());
+        databaseModel.open();
+        databaseModel.clear();
+        databaseModel.close();
+
         Toast.makeText(this.getApplicationContext(), "alles gelöscht", Toast.LENGTH_SHORT).show();
         finish();
     }

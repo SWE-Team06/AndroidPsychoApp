@@ -58,7 +58,7 @@ public class DatabaseModel {
 
         cursor.moveToFirst();
         SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
-        Toast.makeText(this.context, newSocialInteraction.toString(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this.context, newSocialInteraction.toString(), Toast.LENGTH_SHORT).show();
 
         cursor.close();
         return newSocialInteraction;
@@ -131,6 +131,14 @@ public class DatabaseModel {
         long id = socialInteraction.getId();
         System.out.println("SocialInteraction with id " + id + " updated.");
         database.update(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS, socialInteraction.toContentValues(), MySQLiteHelper.COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    /**
+     * Clear Database and prepare it for next usage
+     */
+    public void clear() {
+        database.execSQL("DROP TABLE IF EXISTS " + MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS);
+        dbHelper.onCreate(database);
     }
 
     /**
