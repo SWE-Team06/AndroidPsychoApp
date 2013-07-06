@@ -5,6 +5,8 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -13,17 +15,21 @@ import android.net.Uri;
  * Created by Andi on 30.06.13.
  */
 
-public class AlarmReceiver extends BroadcastReceiver
-{
+public class AlarmReceiver extends BroadcastReceiver {
     @Override
-    public void onReceive(Context ourAppScope, Intent intentFromAlarmManager)
-    {
+    public void onReceive(Context ourAppScope, Intent intentFromAlarmManager) {
         /*
             make vibrate pattern
             Start without a delay
             Vibrate for 250 milliseconds
             Sleep for 800 milliseconds
          */
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(ourAppScope);
+
+
+        DatabaseModel dbmodel = new DatabaseModel(ourAppScope);
+        SocialInteraction interaction = dbmodel.createSocialInteraction(System.currentTimeMillis(), preferences.getString("code", ""));
+
         long[] vibratePattern = {0, 1500, 800};
 
         //Define sound URI
@@ -39,11 +45,12 @@ public class AlarmReceiver extends BroadcastReceiver
 
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(ourAppScope, MainActivity.class);
+        resultIntent.putExtra("SocialInteractionID", interaction.getId());
         PendingIntent resultPendingIntent = PendingIntent.getActivity(ourAppScope, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         mBuilder.setContentIntent(resultPendingIntent);
 
-        NotificationManager mNotificationManager = (NotificationManager)ourAppScope.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationManager = (NotificationManager) ourAppScope.getSystemService(Context.NOTIFICATION_SERVICE);
         // mId allows you to update the notification later on.
         mNotificationManager.notify(0, mBuilder.build());
     }
