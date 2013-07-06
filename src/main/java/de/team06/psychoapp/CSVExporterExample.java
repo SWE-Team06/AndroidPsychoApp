@@ -43,21 +43,9 @@ public class CSVExporterExample extends Activity {
 
     public void click (View view) {
 
-        List<SocialInteraction> interactions = new ArrayList<SocialInteraction>();
-
-        SocialInteraction dataset = new SocialInteraction();
-        dataset.setCode("1234");
-        dataset.setNumberOfContacts(2);
-        dataset.setAlarmTime(12);
-        dataset.setSkipped(0);
-        dataset.setMinutes(10);
-        dataset.setHours(2);
-        dataset.setResponseTime(5);
-
-        interactions.add(dataset);
-
+        DatabaseModel databaseModel = new DatabaseModel(getApplicationContext());
+        List<SocialInteraction> interactions = databaseModel.getAllSocialInteractions();;
         CSVExporter exporter = new CSVExporter();
-
         Toast.makeText(this.getApplicationContext(),"" + exporter.exportCSV(interactions),Toast.LENGTH_SHORT).show();
     }
 }

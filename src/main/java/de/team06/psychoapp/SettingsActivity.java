@@ -50,6 +50,7 @@ public class SettingsActivity extends PreferenceActivity {
         super.onPause();
     }
 
+
     public void setAlarm() {
 
         int alarm1 = Integer.parseInt(preferences.getString("alarm_morgen", "-1"));
