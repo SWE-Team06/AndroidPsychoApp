@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
         }
 
         if(preferences.getString("code","").length()==0) {
-            Toast.makeText(getApplicationContext(),"ProbandenCode eingeben", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),"ProbandenCode eingeben", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, SettingsActivity.class));
         }
 
