@@ -154,7 +154,7 @@ public class SocialInteraction {
      * @param long responseTime
      */
     public void setResponseTime(long responseTime) {
-        this.responseTime =(int) responseTime / 1000;
+        this.responseTime =(int) (responseTime / 1000);
     }
 
     public void setSkipped(int skipped) {

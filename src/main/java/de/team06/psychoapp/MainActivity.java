@@ -127,7 +127,6 @@ public class MainActivity extends Activity {
 
             // Save object
             dbModel.updateSocialInteraction(socialInteraction);
-            Toast.makeText(this, socialInteraction.toString(), Toast.LENGTH_LONG).show();
 
             // Disable Button
             Button button = (Button) findViewById(R.id.button);
