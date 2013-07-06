@@ -34,26 +34,22 @@ public class DatabaseModel {
         dbHelper.close();
     }
 
-    public SocialInteraction createSocialInteraction(int alarmtime, String code) {
+    /**
+     * Create a new SocialInteraction Object and save it to db.
+     * @param long alarmtime
+     * @param String code
+     * @return SocialInteraction
+     */
+    public SocialInteraction createSocialInteraction(long alarmtime, String code) {
+        // we are saving the alarmtime in sec not in msec
+        alarmtime = alarmtime / 1000;
+
         ContentValues values = new ContentValues();
         values.put("alarmtime", alarmtime);
         values.put("code", code);
-       /* values.put("responsetime", 11880);
-        values.put("skip", 0);
-        values.put("contacts", 1);
-        values.put("hours", 2);
-        values.put("minutes", 3); */
 
         long insertId = dbHelper.getWritableDatabase().insert(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS, null,
                 values);
-      /*  String sql = "SELECT * FROM interactions";
-       Cursor cursor = dbHelper.getReadableDatabase().rawQuery(sql, null);
-       cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
-            Toast.makeText(this.context, ""+cursor.getInt(cursor.getColumnIndex("_id")) , Toast.LENGTH_SHORT).show();
-            cursor.moveToNext();
-        }
-        */
         Cursor cursor = database.query(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS,
                 MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, MySQLiteHelper.COLUMN_ID + " = ?", new String[]{String.valueOf(insertId)},
                 null, null, null);
