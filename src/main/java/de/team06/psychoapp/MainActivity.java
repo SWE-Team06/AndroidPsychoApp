@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -27,6 +28,9 @@ public class MainActivity extends Activity {
             startActivity(new Intent(this, SettingsActivity.class));
         }
 
+        dbModel = new DatabaseModel(this);
+        dbModel.open();
+
         // Recieve
         socialInteractionID = getIntent().getLongExtra("socialInteractionID", -1);
         Toast.makeText(this.getApplicationContext(), socialInteractionID + "", Toast.LENGTH_SHORT).show();
@@ -36,11 +40,11 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
+        dbModel = new DatabaseModel(this);
+        dbModel.open();
+
         // social interactionID is not passed, for example app was started manually
         if (socialInteractionID == -1) {
-            dbModel = new DatabaseModel(this);
-            dbModel.open();
-
             SocialInteraction lastSocialInteraction = dbModel.getLastSocialInteraction();
 
             if (lastSocialInteraction != null && lastSocialInteraction.isSkipped() == true)
@@ -53,6 +57,15 @@ public class MainActivity extends Activity {
             }
 
         }
+
+        // change text
+        SocialInteraction lastUnskippedSocialInteraction = dbModel.getLastUnskippedSocialInteraction();
+
+        if (lastUnskippedSocialInteraction != null) {
+            TextView text = (TextView) findViewById(R.id.textView3);
+            text.setText(lastUnskippedSocialInteraction.getAlarmDayCSV() + ", " + lastUnskippedSocialInteraction.getAlarmDateCSV() + "   " + lastUnskippedSocialInteraction.getAlarmTimeCSV());
+        }
+
 
         Toast.makeText(this.getApplicationContext(), socialInteractionID + "", Toast.LENGTH_SHORT).show();
     }
@@ -114,6 +127,7 @@ public class MainActivity extends Activity {
 
             // Save object
             dbModel.updateSocialInteraction(socialInteraction);
+            Toast.makeText(this, socialInteraction.toString(), Toast.LENGTH_LONG).show();
 
             // Disable Button
             Button button = (Button) findViewById(R.id.button);
