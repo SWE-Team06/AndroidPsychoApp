@@ -36,7 +36,8 @@ public class DatabaseModel {
 
     /**
      * Create a new SocialInteraction Object and save it to db.
-     * @param long alarmtime
+     *
+     * @param long   alarmtime
      * @param String code
      * @return SocialInteraction
      */
@@ -55,9 +56,27 @@ public class DatabaseModel {
                 null, null, null);
 
 
-       cursor.moveToFirst();
-       SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
-       Toast.makeText(this.context, newSocialInteraction.toString(), Toast.LENGTH_SHORT).show();
+        cursor.moveToFirst();
+        SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
+        Toast.makeText(this.context, newSocialInteraction.toString(), Toast.LENGTH_SHORT).show();
+
+        cursor.close();
+        return newSocialInteraction;
+    }
+
+    /**
+     * Get SocialInteraction object from database by ID
+     * @param long id
+     * @return SocialInteraction
+     */
+    public SocialInteraction getSocialInteractionByID(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS,
+                MySQLiteHelper.TABLE_SOCIAL_INTERACTIONS_ALL, MySQLiteHelper.COLUMN_ID + " = ?", new String[]{String.valueOf(id)},
+                null, null, null);
+
+
+        cursor.moveToFirst();
+        SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
 
         cursor.close();
         return newSocialInteraction;
@@ -65,6 +84,7 @@ public class DatabaseModel {
 
     /**
      * Delete given SocialInteraction from database
+     *
      * @param socialInteraction
      */
     public void deleteSocialInteraction(SocialInteraction socialInteraction) {
@@ -82,6 +102,7 @@ public class DatabaseModel {
 
     /**
      * Get all social interactions from database as list of social interaction objects
+     *
      * @return ArrayList<SocialInteraction>
      */
     public List<SocialInteraction> getAllSocialInteractions() {
@@ -104,6 +125,7 @@ public class DatabaseModel {
 
     /**
      * Create a SocialInteraction object from db-cursor
+     *
      * @param cursor SQLite-Cursor
      * @return SocialInteraction
      */

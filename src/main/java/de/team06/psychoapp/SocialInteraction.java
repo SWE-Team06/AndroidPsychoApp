@@ -69,15 +69,20 @@ public class SocialInteraction {
      */
     public String getAlarmTimeCSV() {
         Date date = new Date();
-        date.setTime((long)alarmTime*1000);
+        date.setTime((long)alarmTime * 1000);
 
         DateFormat dformat = new SimpleDateFormat( "hh:mm" );
 
         return dformat.format(date);
     }
 
-    public int getResponseTime() {
-        return responseTime;
+
+    /**
+     * Returns responseTime in msec since 1.1.1970 00:00 UTC
+     * @return long responseTime
+     */
+    public long getResponseTime() {
+        return responseTime * 1000;
     }
     /**
      * Get the Response Time formatted hh:mm as string
@@ -130,8 +135,12 @@ public class SocialInteraction {
         this.alarmTime = alarmTime;
     }
 
-    public void setResponseTime(int responseTime) {
-        this.responseTime = responseTime;
+    /**
+     * Set responseTime in msec since 1.1.1970 00:00 UTC
+     * @param long responseTime
+     */
+    public void setResponseTime(long responseTime) {
+        this.responseTime =(int) responseTime / 1000;
     }
 
     public void setSkipped(int skipped) {
