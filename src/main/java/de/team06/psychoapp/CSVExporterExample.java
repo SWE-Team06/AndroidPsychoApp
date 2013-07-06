@@ -44,8 +44,11 @@ public class CSVExporterExample extends Activity {
     public void click (View view) {
 
         DatabaseModel databaseModel = new DatabaseModel(getApplicationContext());
+        databaseModel.open();
         List<SocialInteraction> interactions = databaseModel.getAllSocialInteractions();;
         CSVExporter exporter = new CSVExporter();
         Toast.makeText(this.getApplicationContext(),"" + exporter.exportCSV(interactions),Toast.LENGTH_SHORT).show();
+        databaseModel.close();
+        finish();
     }
 }
