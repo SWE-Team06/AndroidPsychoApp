@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -52,6 +56,24 @@ public class SettingsActivity extends PreferenceActivity {
             this.findPreference("code").setEnabled(false);
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_setDemoAlarm:
+                setTestAlarm();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -110,4 +132,14 @@ public class SettingsActivity extends PreferenceActivity {
         alarmMaker.addAlarm(cal4.getTimeInMillis(), TimeSection.FOURTH_QUARTER);
 
     }
+
+    public void setTestAlarm() {
+        /*
+            test alarm maker
+         */
+        AlarmMaker testAlarm = new AlarmMaker(this.getApplicationContext());
+        testAlarm.addAlarm(System.currentTimeMillis() + 10000, TimeSection.FOURTH_QUARTER);
+        Toast.makeText(this.getApplicationContext(), "Demo Alarm gesetzt", Toast.LENGTH_LONG).show();
+    }
+
 }

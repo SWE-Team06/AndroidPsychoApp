@@ -28,6 +28,11 @@ public class MainActivity extends Activity {
             startActivity(new Intent(this, SettingsActivity.class));
         }
 
+        if(preferences.getString("code","").length()==0) {
+            Toast.makeText(getApplicationContext(),"ProbandenCode eingeben", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
+
         dbModel = new DatabaseModel(this);
         dbModel.open();
 
