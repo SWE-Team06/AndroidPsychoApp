@@ -46,7 +46,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(ourAppScope, MainActivity.class);
-        resultIntent.putExtra("SocialInteractionID", interaction.getId());
+        resultIntent.putExtra("socialInteractionID", interaction.getId());
         PendingIntent resultPendingIntent = PendingIntent.getActivity(ourAppScope, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         mBuilder.setContentIntent(resultPendingIntent);
