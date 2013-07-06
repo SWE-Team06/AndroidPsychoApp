@@ -17,13 +17,19 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         <activity
-                android:name="de.team06.psychoapp.MainActivity"
-                android:label="@string/app_name">
+                android:name=".SettingsActivity"
+                android:label="Settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".reset"/>
+        <activity
+                android:name="de.team06.psychoapp.MainActivity"
+                android:label="@string/app_name">
+
         </activity>
         <activity
                 android:name=".CSVExporterExample"
@@ -38,10 +44,6 @@
                 <action android:name="de.team06.psychoapp.ALARM.TimeToDisclosureYourSocialAffairs"/>
             </intent-filter>
         </receiver>
-        <activity
-                android:name=".SettingsActivity"
-                android:label="Settings"/>
-        <activity android:name=".reset"/>
     </application>
 
 </manifest>

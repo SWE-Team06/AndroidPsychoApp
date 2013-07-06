@@ -36,6 +36,9 @@ public class reset extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void click (View view) {
+        reset();
+    }
 
     public void reset() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
