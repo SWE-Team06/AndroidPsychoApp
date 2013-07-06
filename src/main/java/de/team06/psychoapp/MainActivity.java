@@ -58,16 +58,13 @@ public class MainActivity extends Activity {
 
         }
 
-        // change text
-        SocialInteraction lastUnskippedSocialInteraction = dbModel.getLastUnskippedSocialInteraction();
+        updateText();
+    }
 
-        if (lastUnskippedSocialInteraction != null) {
-            TextView text = (TextView) findViewById(R.id.textView3);
-            text.setText(lastUnskippedSocialInteraction.getAlarmDayCSV() + ", " + lastUnskippedSocialInteraction.getAlarmDateCSV() + "   " + lastUnskippedSocialInteraction.getAlarmTimeCSV());
-        }
-
-
-        Toast.makeText(this.getApplicationContext(), socialInteractionID + "", Toast.LENGTH_SHORT).show();
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        updateText();
     }
 
     @Override
@@ -139,4 +136,17 @@ public class MainActivity extends Activity {
         dbModel.close();
     }
 
+    public void updateText() {
+
+        // change text
+        SocialInteraction lastUnskippedSocialInteraction = dbModel.getLastUnskippedSocialInteraction();
+
+        if (lastUnskippedSocialInteraction != null) {
+            TextView text = (TextView) findViewById(R.id.textView3);
+            text.setText(lastUnskippedSocialInteraction.getAlarmDayCSV() + ", " + lastUnskippedSocialInteraction.getAlarmDateCSV() + "   " + lastUnskippedSocialInteraction.getAlarmTimeCSV());
+        }
+
+
+        Toast.makeText(this.getApplicationContext(), socialInteractionID + "", Toast.LENGTH_SHORT).show();
+    }
 }

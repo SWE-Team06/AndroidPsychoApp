@@ -108,6 +108,10 @@ public class DatabaseModel {
         cursor.moveToFirst();
         SocialInteraction newSocialInteraction = cursorToSocialInteraction(cursor);
         cursor.close();
+
+        if(newSocialInteraction == null)
+            newSocialInteraction = getLastSocialInteraction();
+
         return newSocialInteraction;
     }
 

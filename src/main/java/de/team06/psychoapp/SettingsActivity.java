@@ -5,9 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -17,25 +14,44 @@ import java.util.Calendar;
  */
 public class SettingsActivity extends PreferenceActivity {
 
-    SharedPreferences preferences;
-
+    private SharedPreferences preferences;
+    private SharedPreferences.OnSharedPreferenceChangeListener myPrefListner;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        myPrefListner = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                Toast.makeText(getApplicationContext(), key, Toast.LENGTH_LONG).show();
+                // ProbandenCode was changed
+                if (key.equals("code")) {
+                    // Create first socialInteraction in database with current time
+                    DatabaseModel dbModel = new DatabaseModel(getApplicationContext());
+                    dbModel.open();
+                    SocialInteraction newSocialInteraction = dbModel.createSocialInteraction(System.currentTimeMillis(), preferences.getString("code", ""));
+                    dbModel.close();
+                }
+            }
+        };
+
+        // Register OnSharedPreferenceChangeListener
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).registerOnSharedPreferenceChangeListener(myPrefListner);
+
         addPreferencesFromResource(R.xml.preferences);
-        preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         /*ProbandenCode Ceck-Routine*/
 
         String code = preferences.getString("code", "");
         Intent intent = getIntent();
         String action = intent.getAction();
-        Toast.makeText(this.getApplicationContext(), action, Toast.LENGTH_LONG);
+        Toast.makeText(this.getApplicationContext(), action, Toast.LENGTH_LONG).show();
 
-        if(code.length()!=0){
+        if (code.length() != 0) {
             this.findPreference("code").setEnabled(false);
         }
+
     }
 
     @Override
@@ -47,9 +63,17 @@ public class SettingsActivity extends PreferenceActivity {
             editor.putBoolean("firstRun", false);
             editor.commit();
         }
+
+        //PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext()).registerOnSharedPreferenceChangeListener(myPrefListner);
         super.onPause();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Register OnSharedPreferenceChangeListener
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).registerOnSharedPreferenceChangeListener(myPrefListner);
+    }
 
     public void setAlarm() {
 
