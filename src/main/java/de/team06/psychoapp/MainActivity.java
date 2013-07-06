@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -70,7 +71,7 @@ public class MainActivity extends Activity {
         EditText minutesEditText = (EditText) findViewById(R.id.minutes);
         String minutes = minutesEditText.getText().toString();
 
-        Toast.makeText(this, anzahl + " SocialContacts and " + hours + "h " + minutes + " min", Toast.LENGTH_SHORT).show();
+        // todo: validate user-input
 
         dbModel = new DatabaseModel(this);
         dbModel.open();
@@ -88,6 +89,12 @@ public class MainActivity extends Activity {
 
             // Save object
             dbModel.updateSocialInteraction(socialInteraction);
+
+            // Disable Button
+            Button button = (Button) findViewById(R.id.button);
+            button.setEnabled(false);
+
+            Toast.makeText(this, "Vielen Dank für die Eingabe!", Toast.LENGTH_LONG).show();
         }
         else
             Toast.makeText(this, "Fehler: Es wurde keine SocialInteractionID übergeben!", Toast.LENGTH_SHORT).show();
