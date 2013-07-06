@@ -1,10 +1,13 @@
 package de.team06.psychoapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -16,11 +19,23 @@ public class SettingsActivity extends PreferenceActivity {
 
     SharedPreferences preferences;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+
+        /*ProbandenCode Ceck-Routine*/
+
+        String code = preferences.getString("code", "");
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        Toast.makeText(this.getApplicationContext(), action, Toast.LENGTH_LONG);
+
+        if(code.length()!=0){
+            this.findPreference("code").setEnabled(false);
+        }
     }
 
     @Override
@@ -33,13 +48,6 @@ public class SettingsActivity extends PreferenceActivity {
             editor.commit();
         }
         super.onPause();
-    }
-
-    public void reset() {
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.commit();
     }
 
     public void setAlarm() {

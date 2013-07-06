@@ -35,7 +35,7 @@ public class CSVExporterExample extends Activity {
 
         switch (item.getItemId())
         {
-            case R.id.export : click(null);
+            case R.id.export : click(null); break;
         }
 
         return super.onOptionsItemSelected(item);
