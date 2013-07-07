@@ -23,7 +23,8 @@
             android:layout_alignLeft="@+id/textView2"
             android:layout_marginTop="10dp"
             android:layout_alignRight="@+id/textView2"
-            android:maxLength="5"/>
+            android:maxLength="5"
+            android:inputType="textCapCharacters|textNoSuggestions"/>
 
     <Button
             android:layout_width="wrap_content"

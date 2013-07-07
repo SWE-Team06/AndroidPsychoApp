@@ -26,13 +26,24 @@ public class SettingsActivity extends PreferenceActivity {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
                 // ProbandenCode was changed
                 if (key.equals("code")) {
-                    // Create first socialInteraction in database with current time
-                    DatabaseModel dbModel = new DatabaseModel(getApplicationContext());
-                    dbModel.open();
-                    SocialInteraction newSocialInteraction = dbModel.createSocialInteraction(System.currentTimeMillis(), preferences.getString("code", ""));
-                    dbModel.close();
+                    // Validate ProbandenCode
+                    if (preferences.getString("code", "").length() != 5 || preferences.getString("code", "").matches("^[a-zA-Z]+$") == false) {
+                        // Delete Probandencode
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("code", "");
+                        editor.commit();
 
-                    setStatusProbandencodeButton();
+                        setStatusProbandencodeButton();
+                        Toast.makeText(getApplicationContext(), "Bitte geben Sie einen gültigen Code ein!", Toast.LENGTH_LONG).show();
+                    } else {
+                        // Create first socialInteraction in database with current time
+                        DatabaseModel dbModel = new DatabaseModel(getApplicationContext());
+                        dbModel.open();
+                        SocialInteraction newSocialInteraction = dbModel.createSocialInteraction(System.currentTimeMillis(), preferences.getString("code", ""));
+                        dbModel.close();
+
+                        setStatusProbandencodeButton();
+                    }
                 }
             }
         };
@@ -99,8 +110,7 @@ public class SettingsActivity extends PreferenceActivity {
         String code = preferences.getString("code", "");
         if (code.length() != 0) {
             this.findPreference("code").setEnabled(false);
-        }
-        else
+        } else
             this.findPreference("code").setEnabled(true);
     }
 
