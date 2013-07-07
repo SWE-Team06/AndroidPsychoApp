@@ -144,8 +144,9 @@ public class SettingsActivity extends PreferenceActivity {
         /*
             test alarm maker
          */
-        AlarmMaker testAlarm = new AlarmMaker(this.getApplicationContext());
+        AlarmMaker testAlarm = new AlarmMaker(getApplicationContext());
         testAlarm.addAlarm(System.currentTimeMillis() + 10000, TimeSection.FOURTH_QUARTER);
+
         Toast.makeText(this.getApplicationContext(), "Demo Alarm gesetzt", Toast.LENGTH_LONG).show();
     }
 

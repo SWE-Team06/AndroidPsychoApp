@@ -23,15 +23,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(de.team06.psychoapp.R.layout.input);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        if (preferences.getBoolean("firstRun", true) == true) {
-            startActivity(new Intent(this, SettingsActivity.class));
-        }
-
-        if(preferences.getString("code","").length()==0) {
-            Toast.makeText(getApplicationContext(),"ProbandenCode eingeben", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, SettingsActivity.class));
-        }
+        onFirstStartUp();
 
         dbModel = new DatabaseModel(this);
         dbModel.open();
@@ -41,10 +33,28 @@ public class MainActivity extends Activity {
         Toast.makeText(this.getApplicationContext(), socialInteractionID + "", Toast.LENGTH_SHORT).show();
     }
 
+    private void onFirstStartUp() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (preferences.getBoolean("firstRun", true) == true) {
+            //startActivity(new Intent(this, SettingsActivity.class));
+        }
+
+        if(preferences.getString("code","").length()==0) {
+            Toast.makeText(getApplicationContext(), "ProbandenCode eingeben", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
 
+        onFirstStartUp();
+        updateButton();
+        updateText();
+    }
+
+    private void updateButton() {
         dbModel = new DatabaseModel(this);
         dbModel.open();
 
@@ -62,13 +72,12 @@ public class MainActivity extends Activity {
             }
 
         }
-
-        updateText();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        updateButton();
         updateText();
     }
 
@@ -151,7 +160,5 @@ public class MainActivity extends Activity {
             text.setText(lastUnskippedSocialInteraction.getAlarmDayCSV() + ", " + lastUnskippedSocialInteraction.getAlarmDateCSV() + "   " + lastUnskippedSocialInteraction.getAlarmTimeCSV());
         }
 
-
-        Toast.makeText(this.getApplicationContext(), socialInteractionID + "", Toast.LENGTH_SHORT).show();
     }
 }
