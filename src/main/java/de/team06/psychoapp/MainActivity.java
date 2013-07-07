@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
             //startActivity(new Intent(this, SettingsActivity.class));
         }
 
-        if(preferences.getString("code","").length()==0) {
+        if (preferences.getString("code", "").length() == 0) {
             Toast.makeText(getApplicationContext(), "ProbandenCode eingeben", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, SettingsActivity.class));
         }
@@ -120,8 +120,6 @@ public class MainActivity extends Activity {
         EditText minutesEditText = (EditText) findViewById(R.id.minutes);
         String minutes = minutesEditText.getText().toString();
 
-        // todo: validate user-input
-
         dbModel = new DatabaseModel(this);
         dbModel.open();
 
@@ -129,21 +127,34 @@ public class MainActivity extends Activity {
             // Get SocialInteraction object from database
             SocialInteraction socialInteraction = dbModel.getSocialInteractionByID(socialInteractionID);
 
-            // Update object
-            socialInteraction.setNumberOfContacts(Integer.valueOf(anzahl));
-            socialInteraction.setHours(Integer.valueOf(hours));
-            socialInteraction.setMinutes(Integer.valueOf(minutes));
-            socialInteraction.setSkipped(0);
-            socialInteraction.setResponseTime(System.currentTimeMillis());
+            // validate user-input
+            SocialInteraction lastSocialInteraction = dbModel.getLastUnskippedSocialInteraction();
 
-            // Save object
-            dbModel.updateSocialInteraction(socialInteraction);
+            long timeInMillisBetween = System.currentTimeMillis() - lastSocialInteraction.getAlarmTime() + (60 * 1000);
+            long socialInteractionTime = ((Long.valueOf(hours) * 60) + Long.valueOf(minutes))* 60 * 1000;
 
-            // Disable Button
-            Button button = (Button) findViewById(R.id.button);
-            button.setEnabled(false);
+            // Toast.makeText(getApplicationContext(), timeInMillisBetween+" | "+socialInteractionTime, Toast.LENGTH_LONG).show();
 
-            Toast.makeText(this, "Vielen Dank für die Eingabe!", Toast.LENGTH_LONG).show();
+            if (socialInteractionTime > timeInMillisBetween) {
+                Toast.makeText(this, "Bitte geben Sie eine gültige Dauer an.", Toast.LENGTH_LONG).show();
+            } else {
+
+                // Update object
+                socialInteraction.setNumberOfContacts(Integer.valueOf(anzahl));
+                socialInteraction.setHours(Integer.valueOf(hours));
+                socialInteraction.setMinutes(Integer.valueOf(minutes));
+                socialInteraction.setSkipped(0);
+                socialInteraction.setResponseTime(System.currentTimeMillis());
+
+                // Save object
+                dbModel.updateSocialInteraction(socialInteraction);
+
+                // Disable Button
+                Button button = (Button) findViewById(R.id.button);
+                button.setEnabled(false);
+
+                Toast.makeText(this, "Vielen Dank für die Eingabe!", Toast.LENGTH_LONG).show();
+            }
         } else
             Toast.makeText(this, "Fehler: Es wurde keine SocialInteractionID übergeben!", Toast.LENGTH_SHORT).show();
 

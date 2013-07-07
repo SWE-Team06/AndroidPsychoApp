@@ -18,9 +18,9 @@ public class SocialInteraction {
     // Probandencode as String
     private String code;
     // AlarmTime (int) as unix timestamp
-    private int alarmTime;
+    private long alarmTime;
     // ResponseTime (int) as unix timestamp
-    private int responseTime;
+    private long responseTime;
     // User skipped Poll (boolean)
     private boolean skipped;
     // number of social Interactions since last alarm
@@ -47,8 +47,8 @@ public class SocialInteraction {
      * Returns alarmTime in msec since 1.1.1970 00:00 UTC
      * @return long alarmTime
      */
-    public int getAlarmTime() {
-        return alarmTime * 1000;
+    public long getAlarmTime() {
+        return alarmTime;
     }
 
     /**
@@ -57,7 +57,7 @@ public class SocialInteraction {
      */
     public String getAlarmDateCSV() {
         Date date = new Date();
-        date.setTime((long)alarmTime*1000);
+        date.setTime(alarmTime);
 
         DateFormat dformat = new SimpleDateFormat( "dd.MM.yy" );
 
@@ -70,7 +70,7 @@ public class SocialInteraction {
      */
     public String getAlarmTimeCSV() {
         Date date = new Date();
-        date.setTime((long)alarmTime * 1000);
+        date.setTime(alarmTime);
 
         DateFormat dformat = new SimpleDateFormat( "HH:mm" );
 
@@ -83,7 +83,7 @@ public class SocialInteraction {
      */
     public String getAlarmDayCSV() {
         Date date = new Date();
-        date.setTime((long)alarmTime * 1000);
+        date.setTime(alarmTime);
 
         DateFormat dformat = new SimpleDateFormat( "EEEE", Locale.GERMAN );
 
@@ -96,7 +96,7 @@ public class SocialInteraction {
      * @return long responseTime
      */
     public long getResponseTime() {
-        return responseTime * 1000;
+        return responseTime;
     }
     /**
      * Get the Response Time formatted hh:mm as string
@@ -104,7 +104,7 @@ public class SocialInteraction {
      */
     public String getResponseTimeCSV() {
         Date date = new Date();
-        date.setTime((long)responseTime*1000);
+        date.setTime(responseTime);
 
         DateFormat dformat = new SimpleDateFormat( "HH:mm" );
 
@@ -145,7 +145,7 @@ public class SocialInteraction {
         this.code = code;
     }
 
-    public void setAlarmTime(int alarmTime) {
+    public void setAlarmTime(long alarmTime) {
         this.alarmTime = alarmTime;
     }
 
@@ -154,7 +154,7 @@ public class SocialInteraction {
      * @param long responseTime
      */
     public void setResponseTime(long responseTime) {
-        this.responseTime =(int) (responseTime / 1000);
+        this.responseTime = responseTime;
     }
 
     public void setSkipped(int skipped) {

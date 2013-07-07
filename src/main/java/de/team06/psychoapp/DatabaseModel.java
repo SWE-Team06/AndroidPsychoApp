@@ -42,8 +42,6 @@ public class DatabaseModel {
      * @return SocialInteraction
      */
     public SocialInteraction createSocialInteraction(long alarmtime, String code) {
-        // we are saving the alarmtime in sec not in msec
-        alarmtime = alarmtime / 1000;
 
         ContentValues values = new ContentValues();
         values.put("alarmtime", alarmtime);
@@ -174,10 +172,10 @@ public class DatabaseModel {
         if (cursor.getCount() > 0) {
             SocialInteraction socialInteraction = new SocialInteraction();
 
-            socialInteraction.setId(cursor.getInt(cursor.getColumnIndex("_id")));
+            socialInteraction.setId(cursor.getLong(cursor.getColumnIndex("_id")));
             socialInteraction.setCode(cursor.getString(1));
-            socialInteraction.setAlarmTime(cursor.getInt(2));
-            socialInteraction.setResponseTime(cursor.getInt(3));
+            socialInteraction.setAlarmTime(cursor.getLong(2));
+            socialInteraction.setResponseTime(cursor.getLong(3));
             socialInteraction.setSkipped(cursor.getInt(4));
             socialInteraction.setNumberOfContacts(cursor.getInt(5));
             socialInteraction.setHours(cursor.getInt(6));

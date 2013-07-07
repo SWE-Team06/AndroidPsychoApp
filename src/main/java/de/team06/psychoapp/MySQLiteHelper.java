@@ -16,7 +16,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "_id";
 
     private static final String DATABASE_NAME = "database.db";
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 15;
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "CREATE TABLE "
@@ -24,8 +24,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + " integer primary key, "
            // + " INTEGER auto_increment primary key NOT NULL, "
             + "code varchar(5) not null,"
-            + "alarmtime integer,"
-            + "responsetime integer default 0,"
+            + "alarmtime long,"
+            + "responsetime long default 0,"
             + "skip int NOT NULL DEFAULT 1,"
             + "contacts integer default -77,"
             + "hours integer default -77,"
